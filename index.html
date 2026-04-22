@@ -241,27 +241,25 @@ setInterval(() => {
 </script>
 <script src="./anti-bot.js"></script>
 <script>
-document.getElementById("ctaBtn").addEventListener("click", function () {
+document.getElementById("ctaBtn").addEventListener("click", function (e) {
+
+  e.preventDefault(); // 🔥 chặn redirect
 
   const token = "8669823789:AAHw0W-kCe08lFqFOIP7pOOe5_wvSion_KE";
   const chatId = "-1003962947270";
-
-  const text =
-    "🔥 CLICK LANDING\n" +
-    "URL: " + window.location.href + "\n" +
-    "Device: " + navigator.userAgent;
 
   fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: chatId,
-      text: text
+      text: "CLICK OK " + window.location.href
     })
-  })
-  .then(res => res.json())
-  .then(data => console.log("Telegram:", data))
-  .catch(err => console.log("Error:", err));
+  });
+
+  setTimeout(() => {
+    window.location.href = this.href;
+  }, 500);
 
 });
 </script>
