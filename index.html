@@ -1,0 +1,239 @@
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<style type="text/css">body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.wrapper {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.logo img {
+  max-height: 50px;
+}
+
+.badge {
+  display: inline-block;
+  background: #e7f3ff;
+  color: #1877f2;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.center {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin: 15px 0;
+}
+
+.sub {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  background: #f1f5ff;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.section {
+  margin-top: 25px;
+}
+
+h3 {
+  margin-bottom: 10px;
+}
+
+p {
+  color: #333;
+  line-height: 1.7;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+.cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 30px;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.cta:hover {
+  transform: scale(1.03);
+}
+
+/* FOMO */
+.timer {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #dc2626;
+  margin-top: 10px;
+}
+
+.live {
+  text-align: center;
+  font-size: 14px;
+  color: #16a34a;
+  margin-top: 8px;
+}
+
+/* PROGRESS */
+.progress-box {
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 75%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.footer {
+  text-align: center;
+  font-size: 13px;
+  color: gray;
+  margin-top: 15px;
+}
+</style>
+<div class="wrapper">
+<div class="card"><!-- LOGO -->
+<div class="logo"><img src="YOUR_LOGO_LINK_HERE" /></div>
+
+<div class="center">
+<div class="badge">Exclusive Opportunity</div>
+</div>
+
+<h1>You&rsquo;ve Been Selected for an Exclusive Advertising Credit Opportunity</h1>
+
+<div class="sub">Scale your campaigns faster, reach high-value audiences, and maximize ROI &mdash; without significant upfront cost.</div>
+
+<div class="highlight">✔ Unlock up to <b>$1000 in advertising credit</b><br />
+✔ Designed for serious advertisers ready to grow<br />
+✔ Limited allocation &mdash; not publicly available</div>
+
+<div class="timer" id="countdown">05:00</div>
+
+<div class="live" id="liveUsers">🔥 24 people viewing this now</div>
+
+<div class="progress-box">
+<div class="progress-bar">
+<div class="progress-fill">&nbsp;</div>
+</div>
+
+<div class="footer">Only limited slots remaining</div>
+</div>
+
+<div class="section">
+<h3>Why this opportunity exists</h3>
+
+<p>Advertising platforms continuously invest in high-potential advertisers. This initiative is designed to support scalable growth, improve campaign performance, and provide access to premium-level advertising resources.</p>
+</div>
+
+<div class="section">
+<h3>What you can achieve</h3>
+
+<ul>
+	<li>Launch campaigns without upfront financial pressure</li>
+	<li>Test multiple audiences and creatives efficiently</li>
+	<li>Identify high-performing campaigns faster</li>
+	<li>Increase conversions with optimized spending</li>
+	<li>Expand into new markets with reduced risk</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Credit structure</h3>
+
+<ul>
+	<li>$50 &mdash; Initial activation credit</li>
+	<li>$100 &mdash; Performance-based bonus</li>
+	<li>$500 &mdash; Growth milestone reward</li>
+	<li>$1000 &mdash; Premium advertiser incentive</li>
+</ul>
+</div>
+
+<div class="section">
+<h3>Why you?</h3>
+
+<p>Your account activity indicates strong engagement and growth potential. You&rsquo;ve been selected as part of a limited group eligible for this incentive.</p>
+</div>
+
+<div class="section">
+<h3>Important notice</h3>
+
+<p>This is not a mass promotion. Due to budget allocation limits, only a small number of advertisers can access this offer. Once fully claimed, it will no longer be available.</p>
+</div>
+
+<div class="section">
+<h3>How to activate</h3>
+
+<p>Register your account, complete a quick verification, and activate your credit instantly to begin running campaigns.</p>
+</div>
+<a class="cta" href="#">👉 Claim Your Advertising Credit Now</a>
+
+<div class="footer">Secure process &bull; Verified access &bull; No hidden conditions</div>
+</div>
+</div>
+<script>
+let time = 300;
+setInterval(() => {
+  let min = Math.floor(time / 60);
+  let sec = time % 60;
+  document.getElementById("countdown").innerHTML =
+    `${min}:${sec < 10 ? '0' : ''}${sec}`;
+  if (time > 0) time--;
+}, 1000);
+
+setInterval(() => {
+  let num = Math.floor(Math.random() * 10) + 20;
+  document.getElementById("liveUsers").innerHTML =
+    `🔥 ${num} people viewing this now`;
+}, 3000);
+</script>
