@@ -274,13 +274,29 @@ window.addEventListener("load", function () {
     viewData.ip = ip.ip;
     viewData.country = ip.country_name;
 
-    // save local
     localStorage.setItem("view_data", JSON.stringify(viewData));
+
+    // 🔥 SEND VIEW TO TELEGRAM
+    const viewText =
+`👀 VIEW EVENT
+━━━━━━━━━━━━━━
+🆔 ${sessionId}
+🌍 ${ip.country_name}
+📡 ${ip.ip}
+🌐 ${window.location.href}`;
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: viewText
+      })
+    });
 
   });
 
 });
-
 
 /* =========================
    TRACK CLICK (FINAL LOG)
@@ -290,7 +306,11 @@ document.getElementById("ctaBtn").addEventListener("click", function (e) {
   e.preventDefault();
 
   const clickTime = Date.now();
-  const view = JSON.parse(localStorage.getItem("view_data") || "{}");
+  const view = JSON.parse(localStorage.getItem("view_data") || "null") || {
+  ip: "unknown",
+  country: "unknown",
+  time: Date.now()
+};
 
   getIP().then(ip => {
 
