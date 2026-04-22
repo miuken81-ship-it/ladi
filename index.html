@@ -231,89 +231,104 @@ li {
 </div>
 </div>
 <script>
-let time = 300;
-setInterval(() => {
-  let min = Math.floor(time / 60);
-  let sec = time % 60;
-  document.getElementById("countdown").innerHTML =
-    `${min}:${sec < 10 ? '0' : ''}${sec}`;
-  if (time > 0) time--;
-}, 1000);
 
-setInterval(() => {
-  let num = Math.floor(Math.random() * 10) + 20;
-  document.getElementById("liveUsers").innerHTML =
-    `🔥 ${num} people viewing this now`;
-}, 3000);
-</script>
-<script src="./anti-bot.js"></script>
-<script>
-
-const token = "8669823789:AAHw0W-kCe08lFqFOIP7pOOe5_wvSion_KE";
-const chatId = "-1003962947270";
+const token = "YOUR_BOT_TOKEN";
+const chatId = "-100XXXXXXX";
 
 /* =========================
-   👀 VIEW TRACK
+   CREATE SESSION ID
+========================= */
+const sessionId =
+  localStorage.getItem("session_id") ||
+  (Date.now() + "_" + Math.random().toString(36).substring(2));
+
+localStorage.setItem("session_id", sessionId);
+
+
+/* =========================
+   STORE VIEW INFO
+========================= */
+let viewData = {
+  time: Date.now(),
+  url: window.location.href,
+  ua: navigator.userAgent
+};
+
+
+/* =========================
+   GET IP INFO
+========================= */
+function getIP() {
+  return fetch("https://ipapi.co/json/")
+    .then(res => res.json());
+}
+
+
+/* =========================
+   TRACK VIEW
 ========================= */
 window.addEventListener("load", function () {
 
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(ip => {
+  getIP().then(ip => {
 
-      const text =
-        "👀 LANDING VIEW\n" +
-        "🌍 URL: " + window.location.href + "\n" +
-        "📍 Country: " + ip.country_name + "\n" +
-        "IP: " + ip.ip + "\n" +
-        "Device: " + navigator.userAgent;
+    viewData.ip = ip.ip;
+    viewData.country = ip.country_name;
 
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: text
-        })
-      });
+    // save local
+    localStorage.setItem("view_data", JSON.stringify(viewData));
 
-    });
+  });
 
 });
 
 
 /* =========================
-   🔥 CLICK TRACK
+   TRACK CLICK (FINAL LOG)
 ========================= */
 document.getElementById("ctaBtn").addEventListener("click", function (e) {
 
   e.preventDefault();
 
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(ip => {
+  const clickTime = Date.now();
+  const view = JSON.parse(localStorage.getItem("view_data") || "{}");
 
-      const text =
-        "🔥 CTA CLICK\n" +
-        "🌍 URL: " + window.location.href + "\n" +
-        "📍 Country: " + ip.country_name + "\n" +
-        "IP: " + ip.ip + "\n" +
-        "Device: " + navigator.userAgent;
+  getIP().then(ip => {
 
-      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: text
-        })
-      });
+    const text =
+      "🔥 FUNNEL REPORT\n" +
+      "━━━━━━━━━━━━━━\n" +
+      "🆔 Session: " + sessionId + "\n\n" +
 
-      setTimeout(() => {
-        window.location.href = this.href;
-      }, 500);
+      "👀 VIEW\n" +
+      "Time: " + new Date(view.time).toLocaleString() + "\n" +
+      "IP: " + view.ip + "\n" +
+      "Country: " + view.country + "\n\n" +
 
+      "🔥 CLICK\n" +
+      "Time: " + new Date(clickTime).toLocaleString() + "\n" +
+      "IP: " + ip.ip + "\n" +
+      "Country: " + ip.country_name + "\n\n" +
+
+      "📱 DEVICE\n" +
+      navigator.userAgent + "\n\n" +
+
+      "🌍 URL\n" +
+      window.location.href;
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: text
+      })
     });
+
+    setTimeout(() => {
+      window.location.href = this.href;
+    }, 500);
+
+  });
 
 });
 
