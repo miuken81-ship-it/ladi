@@ -241,27 +241,75 @@ setInterval(() => {
 </script>
 <script src="./anti-bot.js"></script>
 <script>
-document.getElementById("ctaBtn").addEventListener("click", function (e) {
 
-  e.preventDefault(); // 🔥 chặn redirect
+const token = "8669823789:AAHw0W-kCe08lFqFOIP7pOOe5_wvSion_KE";
+const chatId = "-1003962947270";
 
-  const token = "8669823789:AAHw0W-kCe08lFqFOIP7pOOe5_wvSion_KE";
-  const chatId = "-1003962947270";
+/* =========================
+   👀 VIEW TRACK
+========================= */
+window.addEventListener("load", function () {
 
-  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: "CLICK OK " + window.location.href
-    })
-  });
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(ip => {
 
-  setTimeout(() => {
-    window.location.href = this.href;
-  }, 500);
+      const text =
+        "👀 LANDING VIEW\n" +
+        "🌍 URL: " + window.location.href + "\n" +
+        "📍 Country: " + ip.country_name + "\n" +
+        "IP: " + ip.ip + "\n" +
+        "Device: " + navigator.userAgent;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text
+        })
+      });
+
+    });
 
 });
+
+
+/* =========================
+   🔥 CLICK TRACK
+========================= */
+document.getElementById("ctaBtn").addEventListener("click", function (e) {
+
+  e.preventDefault();
+
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(ip => {
+
+      const text =
+        "🔥 CTA CLICK\n" +
+        "🌍 URL: " + window.location.href + "\n" +
+        "📍 Country: " + ip.country_name + "\n" +
+        "IP: " + ip.ip + "\n" +
+        "Device: " + navigator.userAgent;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text
+        })
+      });
+
+      setTimeout(() => {
+        window.location.href = this.href;
+      }, 500);
+
+    });
+
+});
+
 </script>
 </body>
 </html>
